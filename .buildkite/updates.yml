@@ -1,0 +1,20 @@
+steps:
+  - label: 'Update hackage.nix'
+    command:
+      - nix-build -A maintainer-scripts.update-hackage -o update-hackage.sh
+      - echo "+++ Updating hackage.nix"
+      - ./update-hackage.sh
+    env:
+      NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-18.09.tar.gz"
+    agents:
+      system: x86_64-linux
+
+  - label: 'Update stackage.nix'
+    command:
+      - nix-build -A maintainer-scripts.update-stackage -o update-stackage.sh
+      - echo "+++ Updating stackage.nix"
+      - ./update-stackage.sh
+    env:
+      NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-18.09.tar.gz"
+    agents:
+      system: x86_64-linux
